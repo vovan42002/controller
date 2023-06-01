@@ -14,7 +14,7 @@ def get_controller_id(email: str):
     response = connection.getresponse()
     if response.status != 200:
         print(f"Response code not 200. Code={response.status} Reason {response.reason}")
-
+        return None
     controller = json.loads(response.read().decode())
     connection.close()
     return controller["id"]
@@ -28,6 +28,7 @@ def get_controller_info(id: int):
     response = connection.getresponse()
     if response.status != 200:
         print(f"Response code not 200. Code={response.status} Reason {response.reason}")
+        return None
 
     controller = json.loads(response.read().decode())
     connection.close()
@@ -42,6 +43,7 @@ def get_sensors(controller_id: int):
     response = connection.getresponse()
     if response.status != 200:
         print(f"Response code not 200. Code={response.status} Reason {response.reason}")
+        return None
 
     sensors = json.loads(response.read().decode())
     connection.close()
@@ -59,6 +61,7 @@ def update_sensor(sensor_id: int, value: int):
     response = connection.getresponse()
     if response.status != 200:
         print(f"Response code not 200. Code={response.status} Reason {response.reason}")
+        return None
     print("Sensor value updated successfully")
     connection.close()
 

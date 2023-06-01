@@ -9,11 +9,12 @@ def get_sensor_values():
     )
     connection.request("GET", "/sensors")
     response = connection.getresponse()
+
     if response.status != 200:
         print(f"Response code not 200. Code={response.status} Reason {response.reason}")
         return None
-    connection.close()
     json_obj = json.loads(response.read().decode())
+    connection.close()
     return json_obj
 
 
@@ -26,9 +27,8 @@ def enable_espf():
     if response.status != 200:
         print(f"Response code not 200. Code={response.status} Reason {response.reason}")
         return None
-    json_obj = json.loads(response.read().decode())
     connection.close()
-    return json_obj["enabled"]
+    return True
 
 
 def disable_espf():
@@ -40,6 +40,5 @@ def disable_espf():
     if response.status != 200:
         print(f"Response code not 200. Code={response.status} Reason {response.reason}")
         return None
-    json_obj = json.loads(response.read().decode())
     connection.close()
-    return json_obj["enabled"]
+    return True
