@@ -1,44 +1,45 @@
 import http.client
 import settings
 import json
+import requests
+
+URL = settings.ESPF_URL
 
 
 def get_sensor_values():
-    connection = http.client.HTTPConnection(
-        settings.ESPF_API_HOST, port=settings.ESPF_API_PORT
-    )
-    connection.request("GET", "/sensors")
-    response = connection.getresponse()
-
-    if response.status != 200:
-        print(f"Response code not 200. Code={response.status} Reason {response.reason}")
-        return None
-    json_obj = json.loads(response.read().decode())
-    connection.close()
-    return json_obj
+    try:
+        response = requests.get(URL + "/sensors")
+        if response.status_code != 200:
+            print(f"Response code not 200. Code={response.status_code}")
+            return None
+        return response.json()
+    except requests.exceptions.HTTPError as error:
+        print(f"Http error {error}")
+    except requests.exceptions.ConnectionError as conerr:
+        print(f"Connection error {conerr}")
 
 
 def enable_espf():
-    connection = http.client.HTTPConnection(
-        settings.ESPF_API_HOST, port=settings.ESPF_API_PORT
-    )
-    connection.request("GET", "/enable")
-    response = connection.getresponse()
-    if response.status != 200:
-        print(f"Response code not 200. Code={response.status} Reason {response.reason}")
-        return None
-    connection.close()
-    return True
+    try:
+        response = requests.get(URL + "/enable")
+        if response.status_code != 200:
+            print(f"Response code not 200. Code={response.status_code}")
+            return None
+        return response.json()
+    except requests.exceptions.HTTPError as error:
+        print(f"Http error {error}")
+    except requests.exceptions.ConnectionError as conerr:
+        print(f"Connection error {conerr}")
 
 
 def disable_espf():
-    connection = http.client.HTTPConnection(
-        settings.ESPF_API_HOST, port=settings.ESPF_API_PORT
-    )
-    connection.request("GET", "/disable")
-    response = connection.getresponse()
-    if response.status != 200:
-        print(f"Response code not 200. Code={response.status} Reason {response.reason}")
-        return None
-    connection.close()
-    return True
+    try:
+        response = requests.get(URL + "/disable")
+        if response.status_code != 200:
+            print(f"Response code not 200. Code={response.status_code}")
+            return None
+        return response.json()
+    except requests.exceptions.HTTPError as error:
+        print(f"Http error {error}")
+    except requests.exceptions.ConnectionError as conerr:
+        print(f"Connection error {conerr}")

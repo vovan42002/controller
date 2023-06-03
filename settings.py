@@ -17,9 +17,11 @@ ESPF_API_HOST = env.str(
 )
 ESPF_API_PORT = env.int(
     "ESPF_API_PORT",
-    default=8001,
+    default=3000,
 )
 
-EMAIL = env.str("EMAIL", default="user2@example.com")
+ESPF_URL = f"http://{ESPF_API_HOST}:{ESPF_API_PORT}"
 
-TIMEOUT = env.int("TIMEOUT", default=3)
+EMAIL = env.str("EMAIL", default="vova@example.com")
+
+TIMEOUT = env.int("TIMEOUT", default=30)
